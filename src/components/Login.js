@@ -24,7 +24,7 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen bg-[#12100c]">
       <div className="w-full max-w-md p-8 space-y-8 bg-[#151513] shadow-lg rounded-lg">
         <h2 className="text-3xl font-extrabold text-center text-[#fff]">
-          Inicia Sesión
+          Ingresa a tu cuenta
         </h2>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">

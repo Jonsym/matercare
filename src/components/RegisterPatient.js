@@ -52,90 +52,90 @@ function RegisterPatient() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
-      <h2 className="text-xl font-bold mb-4">
+    <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
+      <h2 className="text-2xl font-semibold mb-6 text-[#b38f4d]">
         {isEditing ? 'Editar Paciente' : 'Registrar Paciente'}
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block mb-2">Hora de Solicitud:</label>
+          <label className="block mb-2 text-gray-700">Hora de Solicitud:</label>
           <input
             type="datetime-local"
             name="requestTime"
             value={patient.requestTime}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
+
             required
           />
         </div>
         <div>
-          <label className="block mb-2">Nombre:</label>
+          <label className="block mb-2 text-gray-700">Nombre:</label>
           <input
             type="text"
             name="name"
             value={patient.name}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
             required
           />
         </div>
         <div>
-          <label className="block mb-2">Edad:</label>
+          <label className="block mb-2 text-gray-700">Edad:</label>
           <input
             type="number"
             name="age"
             value={patient.age}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
             required
           />
         </div>
         <div>
-          <label className="block mb-2">Seguro Popular:</label>
+          <label className="block mb-2 text-gray-700">Seguro Popular:</label>
           <input
             type="text"
             name="insurance"
             value={patient.insurance}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
             required
           />
         </div>
         <div>
-          <label className="block mb-2">Teléfono:</label>
+          <label className="block mb-2 text-gray-700">Teléfono:</label>
           <input
             type="tel"
             name="phone"
             value={patient.phone}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
             required
           />
         </div>
         <div>
-          <label className="block mb-2">Referencia:</label>
+          <label className="block mb-2 text-gray-700">Referencia:</label>
           <input
             type="text"
             name="reference"
             value={patient.reference}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
             required
           />
         </div>
-        <div>
-          <label className="block mb-2">Motivo de consulta:</label>
-          <input
-            type="text"
+        <div className="md:col-span-2">
+          <label className="block mb-2 text-gray-700">Motivo de consulta:</label>
+          <textarea
             name="reason"
             value={patient.reason}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
             required
           />
         </div>
       </div>
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded mt-4">
+      <button type="submit" className="bg-[#b38f4d] text-white p-3 rounded-lg mt-6 hover:bg-[#9e7e3b] transition duration-200">
         {isEditing ? 'Guardar Cambios' : 'Registrar'}
       </button>
     </form>
