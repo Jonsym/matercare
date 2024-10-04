@@ -99,20 +99,19 @@ const Home = () => {
             </div>
 
             <nav className="hidden md:flex md:items-center md:justify-end md:space-x-12">
-              <NavLink to="/login">Inicia Sesión</NavLink>
               <NavLink to="/register">Regístrate</NavLink>
+              <NavLink to="/login">Inicia Sesión</NavLink>
             </nav>
           </div>
 
           {expanded && (
             <nav className="flex flex-col pt-8 pb-4 space-y-6 md:hidden">
-              <NavLink to="/login">Inicia Sesión</NavLink>
               <NavLink to="/register">Regístrate</NavLink>
+              <NavLink to="/login">Inicia Sesión</NavLink>
             </nav>
           )}
         </div>
       </header>
-
       <HeroSection />
     </div>
   );
