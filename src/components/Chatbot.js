@@ -120,7 +120,7 @@ const Chatbot = () => {
       {!isOpen && (
         <div className="relative">
           <button
-            className="bg-[#b38f4d] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg"
+            className="bg-red-500 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg"
             onClick={() => setIsOpen(true)}
           >
             <FaRobot className="text-3xl" />
@@ -142,7 +142,7 @@ const Chatbot = () => {
       {isOpen && (
         <div className="w-80 h-96 bg-white shadow-lg rounded-xl flex flex-col relative">
           {/* Header del Chatbot */}
-          <div className="flex items-center justify-between bg-[#b38f4d] text-white p-4 rounded-t-xl">
+          <div className="flex items-center justify-between bg-red-500 text-white p-4 rounded-t-xl">
             <div className="flex items-center space-x-2">
               <FaRobot className="text-xl" />
               <h1 className="font-semibold">Mater.Care Chatbot</h1>
@@ -165,7 +165,7 @@ const Chatbot = () => {
                   className={`p-3 rounded-lg max-w-xs ${
                     message.sender === "user"
                       ? "bg-blue-500 text-white rounded-br-none" // Mensajes del usuario
-                      : "bg-gray-300 text-black rounded-bl-none" // Mensajes del bot
+                      : "bg-red-500 text-white rounded-bl-none" // Mensajes del bot
                   }`}
                 >
                   {message.text}
@@ -185,7 +185,7 @@ const Chatbot = () => {
               onKeyPress={handleKeyPress}
             />
             <button
-              className="ml-2 bg-[#b38f4d] text-white p-2 rounded-lg hover:bg-[#c59134]"
+              className="ml-2 bg-red-500 text-white p-2 rounded-lg hover:bg-red-600"
               onClick={handleSendMessage}
             >
               <FaPaperPlane />

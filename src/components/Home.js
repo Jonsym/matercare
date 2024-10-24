@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import videohome from '../assets/videohome.mp4';
+import video3d from '../assets/video3d.mp4';
 
 const MenuButton = ({ expanded, onClick }) => (
   <button
@@ -42,7 +42,7 @@ const HeroSection = () => (
         autoPlay
         muted
         aria-hidden="true"
-        src={videohome}
+        src={video3d}
       ></video>
       <div className="absolute inset-0 bg-black opacity-50 rounded-2xl"></div>
     </div>
@@ -51,13 +51,9 @@ const HeroSection = () => (
         <p className="text-sm font-semibold tracking-widest text-gray-300 uppercase">
           Un espacio diseñado para mejorar tu trabajo
         </p>
-        <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
-          <span className="bg-gradient-to-r from-gray-200 to-gray-400 text-transparent bg-clip-text">
-            Control Interno De Pacientes
-          </span>
-        </h1>
+        <BubbleText />
         <p className="mt-4 max-w-3xl mx-auto text-lg font-normal text-gray-300 sm:text-xl lg:text-2xl">
-          En el Area del Módulo Mater de Ginecología y Obstetricia
+          EN EL AREA DEL MODULO MATER DE GINECOLOGIA Y OBSTETRICIA
         </p>
         <div className="relative inline-flex items-center justify-center mt-8 sm:mt-12">
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 opacity-50"></div>
@@ -77,6 +73,72 @@ const HeroSection = () => (
     </div>
   </section>
 );
+
+const BubbleText = () => {
+  useEffect(() => {
+    const spans = document.querySelectorAll(".hover-text span");
+
+    spans.forEach((span) => {
+      span.addEventListener("mouseenter", function () {
+        this.style.fontWeight = "900";
+        this.style.color = "rgb(238, 242, 255)";
+
+        const leftNeighbor = this.previousElementSibling;
+        const rightNeighbor = this.nextElementSibling;
+
+        if (leftNeighbor) {
+          leftNeighbor.style.fontWeight = "500";
+          leftNeighbor.style.color = "rgb(199, 210, 254)";
+        }
+        if (rightNeighbor) {
+          rightNeighbor.style.fontWeight = "500";
+          rightNeighbor.style.color = "rgb(199, 210, 254)";
+        }
+      });
+
+      span.addEventListener("mouseleave", function () {
+        this.style.fontWeight = "100";
+        this.style.color = "rgb(165, 180, 252)";
+
+        const leftNeighbor = this.previousElementSibling;
+        const rightNeighbor = this.nextElementSibling;
+
+        if (leftNeighbor) {
+          leftNeighbor.style.fontWeight = "100";
+          leftNeighbor.style.color = "rgb(165, 180, 252)";
+        }
+
+        if (rightNeighbor) {
+          rightNeighbor.style.fontWeight = "100";
+          rightNeighbor.style.color = "rgb(165, 180, 252)";
+        }
+      });
+    });
+  }, []);
+
+  return (
+    <h1 className="hover-text mt-6 text-4xl font-extrabold text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+      <Text>CONTROL INTERNO DE PACIENTES</Text>
+    </h1>
+  );
+};
+
+const Text = ({ children }) => {
+  return (
+    <>
+      {children.split("").map((child, idx) => (
+        <span
+          style={{
+            transition: "0.35s font-weight, 0.35s color",
+          }}
+          key={idx}
+        >
+          {child}
+        </span>
+      ))}
+    </>
+  );
+};
 
 const Home = () => {
   const [expanded, setExpanded] = useState(false);

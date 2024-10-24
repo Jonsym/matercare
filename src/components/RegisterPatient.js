@@ -65,12 +65,12 @@ function RegisterPatient() {
             value={patient.requestTime}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
-
+          
             required
           />
         </div>
         <div>
-          <label className="block mb-2 text-gray-700">Nombre:</label>
+          <label className="block mb-2 text-gray-700">Nombre Completo:</label>
           <input
             type="text"
             name="name"
@@ -92,15 +92,18 @@ function RegisterPatient() {
           />
         </div>
         <div>
-          <label className="block mb-2 text-gray-700">Seguro Popular:</label>
-          <input
-            type="text"
+          <label className="block mb-2 text-gray-700">IMMS Bienestar:</label>
+          <select
             name="insurance"
             value={patient.insurance}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
             required
-          />
+          >
+            <option value="" disabled>Selecciona una opción</option> {/* Opción por defecto */}
+            <option value="Sí">Sí</option>
+            <option value="No">No</option>
+          </select>
         </div>
         <div>
           <label className="block mb-2 text-gray-700">Teléfono:</label>

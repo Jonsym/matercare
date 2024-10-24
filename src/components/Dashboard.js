@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import RegisterPatient from './RegisterPatient';
 import ViewPatients from './ViewPatients';
@@ -10,6 +10,8 @@ function Dashboard() {
       <Sidebar />
       <div className="flex-grow p-6">
         <Routes>
+          {/* Establecemos RegisterPatient como la ruta predeterminada */}
+          <Route path="/" element={<Navigate to="register-patient" />} />
           <Route path="register-patient" element={<RegisterPatient />} />
           <Route path="view-patients" element={<ViewPatients />} />
         </Routes>
