@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from './Header';
 
 
 const Register = () => {
@@ -40,7 +41,9 @@ const Register = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-[#12100c]">
+        <>
+         <Header />
+         <div className="flex items-center justify-center min-h-screen bg-[#12100c]">
             <div className="w-full max-w-md p-8 space-y-8 bg-[#151513] shadow-lg rounded-lg">
                 <h2 className="text-3xl font-extrabold text-center text-[#fff]">
                     Crea tu cuenta
@@ -99,6 +102,8 @@ const Register = () => {
                 </p>
             </div>
         </div>
+        </>
+       
     );
 };
 

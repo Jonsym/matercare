@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdMenuOpen } from 'react-icons/md';
-import { FaUserCircle, FaSignOutAlt, FaUserPlus } from 'react-icons/fa'; 
-import { IoHomeOutline, IoReceipt } from "react-icons/io5";
+import { FaSignOutAlt, FaUserPlus } from 'react-icons/fa'; 
+import { IoReceipt } from "react-icons/io5";
 
 const menuItems = [
   {

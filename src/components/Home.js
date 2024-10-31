@@ -151,7 +151,7 @@ const Home = () => {
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="shrink-0">
-              <a href="#" title="" className="flex items-center space-x-2">
+              <a href="/" title="" className="flex items-center space-x-2">
                 <span className="text-xl font-bold text-white">Mater.Care</span>
               </a>
             </div>

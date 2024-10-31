@@ -12,7 +12,15 @@ function RegisterPatient() {
     insurance: '',
     phone: '',
     reference: '',
-    reason: ''
+    reason: '',
+    patient_curp: '',
+    patient_birthdate: '',
+    relative_name: '',
+    address: '',
+    street: '',
+    neighborhood: '',
+    house_number: '',
+    postal_code: '',
   });
 
   useEffect(() => {
@@ -26,36 +34,61 @@ function RegisterPatient() {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const storedPatients = JSON.parse(localStorage.getItem('patients')) || [];
-
+    const patients = JSON.parse(localStorage.getItem('patients')) || [];
     if (isEditing) {
-      const updatedPatients = storedPatients.map((p) =>
-        p.phone === patient.phone ? patient : p
+      const index = patients.findIndex(
+        (p) => p.name === patient.name && p.requestTime === patient.requestTime
       );
-      localStorage.setItem('patients', JSON.stringify(updatedPatients));
+      patients[index] = patient;
     } else {
-      localStorage.setItem('patients', JSON.stringify([...storedPatients, patient]));
+      patients.push(patient);
     }
+    localStorage.setItem('patients', JSON.stringify(patients));
 
-    setPatient({
-      requestTime: '',
-      name: '',
-      age: '',
-      insurance: '',
-      phone: '',
-      reference: '',
-      reason: ''
-    });
-    navigate('/dashboard/view-patients');
+    try {
+      const response = await fetch('http://localhost/matercare-backend/addpatient.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(patient),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        alert(result.success || 'Paciente registrado exitosamente');
+        setPatient({
+          requestTime: '',
+          name: '',
+          age: '',
+          insurance: '',
+          phone: '',
+          reference: '',
+          reason: '',
+          patient_curp: '',
+          patient_birthdate: '',
+          relative_name: '',
+          address: '',
+          street: '',
+          neighborhood: '',
+          house_number: '',
+          postal_code: '',
+        });
+        navigate('/dashboard/view-patients');
+      } else {
+        throw new Error(result.error || 'Error desconocido al registrar el paciente');
+      }
+    } catch (error) {
+      alert('Error al registrar el paciente: ' + error.message);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-6 text-[#b38f4d]">
+    <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg space-y-8">
+      <h2 className="text-2xl font-semibold text-[#b38f4d]">
         {isEditing ? 'Editar Paciente' : 'Registrar Paciente'}
       </h2>
+
+      {/* Información del Paciente */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block mb-2 text-gray-700">Hora de Solicitud:</label>
@@ -64,8 +97,7 @@ function RegisterPatient() {
             name="requestTime"
             value={patient.requestTime}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
-          
+            className="w-full p-3 border border-gray-300 rounded-lg"
             required
           />
         </div>
@@ -76,7 +108,7 @@ function RegisterPatient() {
             name="name"
             value={patient.name}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
+            className="w-full p-3 border border-gray-300 rounded-lg"
             required
           />
         </div>
@@ -87,34 +119,49 @@ function RegisterPatient() {
             name="age"
             value={patient.age}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
+            className="w-full p-3 border border-gray-300 rounded-lg"
             required
           />
         </div>
-        <div>
-          <label className="block mb-2 text-gray-700">IMMS Bienestar:</label>
-          <select
-            name="insurance"
-            value={patient.insurance}
-            onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
-            required
-          >
-            <option value="" disabled>Selecciona una opción</option> {/* Opción por defecto */}
-            <option value="Sí">Sí</option>
-            <option value="No">No</option>
-          </select>
-        </div>
-        <div>
-          <label className="block mb-2 text-gray-700">Teléfono:</label>
-          <input
-            type="tel"
-            name="phone"
-            value={patient.phone}
-            onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
-            required
-          />
+        <div className="col-span-1 md:col-span-2 flex space-x-6">
+          <div>
+            <label className="block mb-2 text-gray-700">IMSS Bienestar:</label>
+            <div className="flex space-x-4">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="insurance"
+                  value="Sí"
+                  checked={patient.insurance === 'Sí'}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                Sí
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="insurance"
+                  value="No"
+                  checked={patient.insurance === 'No'}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                No
+              </label>
+            </div>
+          </div>
+          <div>
+            <label className="block mb-2 text-gray-700">Teléfono:</label>
+            <input
+              type="tel"
+              name="phone"
+              value={patient.phone}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg"
+              required
+            />
+          </div>
         </div>
         <div>
           <label className="block mb-2 text-gray-700">Referencia:</label>
@@ -123,23 +170,123 @@ function RegisterPatient() {
             name="reference"
             value={patient.reference}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
+            className="w-full p-3 border border-gray-300 rounded-lg"
             required
           />
         </div>
-        <div className="md:col-span-2">
-          <label className="block mb-2 text-gray-700">Motivo de consulta:</label>
-          <textarea
+        <div>
+          <label className="block mb-2 text-gray-700">Motivo de Consulta:</label>
+          <input
+            type="text"
             name="reason"
             value={patient.reason}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-[#b38f4d] focus:border-[#b38f4d] hover:border-[#b38f4d] sm:text-sm transition-all duration-300 ease-in-out"
+            className="w-full p-3 border border-gray-300 rounded-lg"
+            required
+          />
+        </div>
+        <div>
+          <label className="block mb-2 text-gray-700">CURP del Paciente:</label>
+          <input
+            type="text"
+            name="patient_curp"
+            value={patient.patient_curp}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg"
+            required
+          />
+        </div>
+        <div>
+          <label className="block mb-2 text-gray-700">Fecha de Nacimiento:</label>
+          <input
+            type="date"
+            name="patient_birthdate"
+            value={patient.patient_birthdate}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg"
+            required
+          />
+        </div>
+        <div>
+          <label className="block mb-2 text-gray-700">Nombre del Familiar:</label>
+          <input
+            type="text"
+            name="relative_name"
+            value={patient.relative_name}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg"
             required
           />
         </div>
       </div>
-      <button type="submit" className="bg-[#b38f4d] text-white p-3 rounded-lg mt-6 hover:bg-[#9e7e3b] transition duration-200">
-        {isEditing ? 'Guardar Cambios' : 'Registrar'}
+
+      {/* Datos de Dirección */}
+      <div className="mt-6 pt-4 border-t border-gray-300">
+        <h3 className="text-lg font-semibold text-gray-700">Datos de Dirección</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          <div>
+            <label className="block mb-2 text-gray-700">Dirección:</label>
+            <input
+              type="text"
+              name="address"
+              value={patient.address}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg"
+              required
+            />
+          </div>
+          <div>
+            <label className="block mb-2 text-gray-700">Calle:</label>
+            <input
+              type="text"
+              name="street"
+              value={patient.street}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg"
+              required
+            />
+          </div>
+          <div>
+            <label className="block mb-2 text-gray-700">Colonia:</label>
+            <input
+              type="text"
+              name="neighborhood"
+              value={patient.neighborhood}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg"
+              required
+            />
+          </div>
+          <div>
+            <label className="block mb-2 text-gray-700">Número:</label>
+            <input
+              type="text"
+              name="house_number"
+              value={patient.house_number}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg"
+              required
+            />
+          </div>
+          <div>
+            <label className="block mb-2 text-gray-700">Código Postal:</label>
+            <input
+              type="text"
+              name="postal_code"
+              value={patient.postal_code}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        className="mt-8 px-6 py-3 bg-[#b38f4d] text-white font-semibold rounded-lg hover:bg-[#d6ab5f]"
+      >
+        {isEditing ? 'Guardar Cambios' : 'Registrar Paciente'}
       </button>
     </form>
   );
