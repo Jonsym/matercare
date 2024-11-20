@@ -4,6 +4,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa'; // Importar los íconos
 
 function ViewPatients() {
   const [patients, setPatients] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para el texto de búsqueda
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,11 +22,32 @@ function ViewPatients() {
     localStorage.setItem('patients', JSON.stringify(updatedPatients));
   };
 
+  // Filtrar pacientes según el término de búsqueda
+  const filteredPatients = patients.filter((patient) => {
+    return (
+      patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      patient.phone.includes(searchTerm) ||
+      patient.reference.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex flex-col items-center">
       <div className="bg-[#2e2b27] shadow-lg rounded-lg w-full max-w-7xl p-6">
         <h2 className="text-3xl font-bold mb-6 text-[#f0e9dd] text-center">Lista de Pacientes</h2>
-        {patients.length > 0 ? (
+        
+        {/* Input del buscador */}
+        <div className="mb-6">
+          <input
+            type="text"
+            placeholder="Buscar por nombre, teléfono o referencia..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full max-w-md px-4 py-2 text-[#2e2b27] rounded-md border border-[#ffffff20] focus:outline-none focus:ring-2 focus:ring-[#b38f4d]"
+          />
+        </div>
+
+        {filteredPatients.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="min-w-full table-auto border-collapse border border-[#ffffff20] text-[#f0e9dd]">
               <thead>
@@ -41,7 +63,7 @@ function ViewPatients() {
                 </tr>
               </thead>
               <tbody>
-                {patients.map((patient) => (
+                {filteredPatients.map((patient) => (
                   <tr key={patient.phone} className="bg-[#2e2b27] hover:bg-[#1e1d1b] transition duration-150">
                     <td className="px-4 py-3 border-b border-[#ffffff20] text-sm whitespace-nowrap">{patient.requestTime}</td>
                     <td className="px-4 py-3 border-b border-[#ffffff20] text-sm whitespace-nowrap">{patient.name}</td>
@@ -59,7 +81,7 @@ function ViewPatients() {
                           <FaEdit size={16} />
                         </button>
                         <button
-                          onClick={() => handleDelete(patient.phone)} // Cambia a patient.phone
+                          onClick={() => handleDelete(patient.phone)} 
                           className="text-[#b38f4d] hover:text-[#d6ab5f] transition-colors duration-200"
                         >
                           <FaTrash size={16} />
@@ -72,7 +94,7 @@ function ViewPatients() {
             </table>
           </div>
         ) : (
-          <p className="text-[#f0e9dd] text-center">No hay pacientes registrados.</p>
+          <p className="text-[#f0e9dd] text-center">No se encontraron pacientes.</p>
         )}
       </div>
     </div>
@@ -80,4 +102,3 @@ function ViewPatients() {
 }
 
 export default ViewPatients;
-
