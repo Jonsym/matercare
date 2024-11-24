@@ -3,8 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MdMenuOpen } from 'react-icons/md';
 import { FaSignOutAlt, FaUserPlus } from 'react-icons/fa'; 
 import { IoReceipt } from "react-icons/io5";
+import { IoStatsChart } from "react-icons/io5"; // Ícono de estadísticas
 
 const menuItems = [
+  {
+    icons: <IoStatsChart size={24} />,
+    label: 'Estadísticas',
+    link: '/dashboard/statics',
+  },
   {
     icons: <FaUserPlus size={24} />,
     label: 'Registrar Paciente',
@@ -30,7 +36,7 @@ export default function Sidebar() {
       
       {/* Header */}
       <div className='flex items-center justify-between h-20'>
-      <h1 className={`text-white font-bold text-xl ml-4 ${!open && 'hidden'} duration-300`}>
+        <h1 className={`text-white font-bold text-xl ml-4 ${!open && 'hidden'} duration-300`}>
           Mater.Care
         </h1>
         <MdMenuOpen 

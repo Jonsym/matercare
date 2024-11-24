@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaEdit, FaTrash } from 'react-icons/fa'; // Importar los íconos
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 function ViewPatients() {
   const [patients, setPatients] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para el texto de búsqueda
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Cargar pacientes desde localStorage
     const storedPatients = JSON.parse(localStorage.getItem('patients')) || [];
     setPatients(storedPatients);
   }, []);
 
   const handleEdit = (patient) => {
+    // Navegar al formulario de edición con los datos del paciente
     navigate('/dashboard/register-patient', { state: { patient } });
   };
 
-  const handleDelete = (phone) => {
-    const updatedPatients = patients.filter((patient) => patient.phone !== phone);
+  const handleDelete = (index) => {
+    // Eliminar paciente según el índice
+    const updatedPatients = patients.filter((_, i) => i !== index);
     setPatients(updatedPatients);
     localStorage.setItem('patients', JSON.stringify(updatedPatients));
   };
 
-  // Filtrar pacientes según el término de búsqueda
   const filteredPatients = patients.filter((patient) => {
     return (
       patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -63,8 +65,8 @@ function ViewPatients() {
                 </tr>
               </thead>
               <tbody>
-                {filteredPatients.map((patient) => (
-                  <tr key={patient.phone} className="bg-[#2e2b27] hover:bg-[#1e1d1b] transition duration-150">
+                {filteredPatients.map((patient, index) => (
+                  <tr key={index} className="bg-[#2e2b27] hover:bg-[#1e1d1b] transition duration-150">
                     <td className="px-4 py-3 border-b border-[#ffffff20] text-sm whitespace-nowrap">{patient.requestTime}</td>
                     <td className="px-4 py-3 border-b border-[#ffffff20] text-sm whitespace-nowrap">{patient.name}</td>
                     <td className="px-4 py-3 border-b border-[#ffffff20] text-sm whitespace-nowrap">{patient.age}</td>
@@ -81,7 +83,7 @@ function ViewPatients() {
                           <FaEdit size={16} />
                         </button>
                         <button
-                          onClick={() => handleDelete(patient.phone)} 
+                          onClick={() => handleDelete(index)} 
                           className="text-[#b38f4d] hover:text-[#d6ab5f] transition-colors duration-200"
                         >
                           <FaTrash size={16} />

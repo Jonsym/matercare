@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import RegisterPatient from './RegisterPatient';
 import ViewPatients from './ViewPatients';
+import Statics from './Statics';
 
 function Dashboard() {
   return (
@@ -10,8 +11,9 @@ function Dashboard() {
       <Sidebar />
       <div className="flex-grow p-6">
         <Routes>
-          {/* Establecemos RegisterPatient como la ruta predeterminada */}
-          <Route path="/" element={<Navigate to="register-patient" />} />
+          {/* Establecemos Statics como la ruta predeterminada */}
+          <Route path="/" element={<Navigate to="statics" />} />
+          <Route path="statics" element={<Statics />} />
           <Route path="register-patient" element={<RegisterPatient />} />
           <Route path="view-patients" element={<ViewPatients />} />
         </Routes>
