@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import video3d from '../assets/video3d.mp4';
 
@@ -51,7 +51,10 @@ const HeroSection = () => (
         <p className="text-sm font-semibold tracking-widest text-gray-300 uppercase">
           Un espacio diseñado para mejorar tu trabajo
         </p>
-        <BubbleText />
+        {/* Título estático sin animación */}
+        <h1 className="mt-6 text-4xl font-extrabold text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+          CONTROL INTERNO DE PACIENTES
+        </h1>
         <p className="mt-4 max-w-3xl mx-auto text-lg font-normal text-gray-300 sm:text-xl lg:text-2xl">
           EN EL AREA DEL MODULO MATER DE GINECOLOGIA Y OBSTETRICIA
         </p>
@@ -67,6 +70,7 @@ const HeroSection = () => (
         </div>
         <div className="mt-8">
           <svg className="w-8 h-8 text-gray-300 mx-auto" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg">
+            {/* Puedes agregar aquí cualquier SVG que necesites */}
           </svg>
         </div>
       </div>
@@ -74,71 +78,7 @@ const HeroSection = () => (
   </section>
 );
 
-const BubbleText = () => {
-  useEffect(() => {
-    const spans = document.querySelectorAll(".hover-text span");
-
-    spans.forEach((span) => {
-      span.addEventListener("mouseenter", function () {
-        this.style.fontWeight = "900";
-        this.style.color = "rgb(238, 242, 255)";
-
-        const leftNeighbor = this.previousElementSibling;
-        const rightNeighbor = this.nextElementSibling;
-
-        if (leftNeighbor) {
-          leftNeighbor.style.fontWeight = "500";
-          leftNeighbor.style.color = "rgb(199, 210, 254)";
-        }
-        if (rightNeighbor) {
-          rightNeighbor.style.fontWeight = "500";
-          rightNeighbor.style.color = "rgb(199, 210, 254)";
-        }
-      });
-
-      span.addEventListener("mouseleave", function () {
-        this.style.fontWeight = "100";
-        this.style.color = "rgb(165, 180, 252)";
-
-        const leftNeighbor = this.previousElementSibling;
-        const rightNeighbor = this.nextElementSibling;
-
-        if (leftNeighbor) {
-          leftNeighbor.style.fontWeight = "100";
-          leftNeighbor.style.color = "rgb(165, 180, 252)";
-        }
-
-        if (rightNeighbor) {
-          rightNeighbor.style.fontWeight = "100";
-          rightNeighbor.style.color = "rgb(165, 180, 252)";
-        }
-      });
-    });
-  }, []);
-
-  return (
-    <h1 className="hover-text mt-6 text-4xl font-extrabold text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
-      <Text>CONTROL INTERNO DE PACIENTES</Text>
-    </h1>
-  );
-};
-
-const Text = ({ children }) => {
-  return (
-    <>
-      {children.split("").map((child, idx) => (
-        <span
-          style={{
-            transition: "0.35s font-weight, 0.35s color",
-          }}
-          key={idx}
-        >
-          {child}
-        </span>
-      ))}
-    </>
-  );
-};
+// Se eliminan los componentes BubbleText y Text
 
 const Home = () => {
   const [expanded, setExpanded] = useState(false);
