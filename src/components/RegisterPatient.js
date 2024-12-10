@@ -58,7 +58,7 @@ function RegisterPatient() {
         });
       }
     } else {
-      patient.id = new Date().getTime(); // Asignar un ID único basado en el timestamp
+      patient.id = new Date().getTime();
       patients.push(patient);
       toast.success('Paciente registrado exitosamente', {
         position: "top-right",
@@ -91,51 +91,50 @@ function RegisterPatient() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg space-y-8">
-        <h2 className="text-2xl font-semibold text-[#b38f4d]">
+      <form onSubmit={handleSubmit} className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg space-y-8">
+        <h2 className="text-xl sm:text-2xl font-semibold text-[#b38f4d]">
           {isEditing ? 'Editar Paciente' : 'Registrar Paciente'}
         </h2>
 
-        {/* Información del Paciente */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block mb-2 text-gray-700">Hora de Solicitud:</label>
+            <label className="block mb-2 text-gray-700 text-sm sm:text-base">Hora de Solicitud:</label>
             <input
               type="datetime-local"
               name="requestTime"
               value={patient.requestTime}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
               required
             />
           </div>
           <div>
-            <label className="block mb-2 text-gray-700">Nombre Completo:</label>
+            <label className="block mb-2 text-gray-700 text-sm sm:text-base">Nombre Completo:</label>
             <input
               type="text"
               name="name"
               value={patient.name}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
               required
             />
           </div>
           <div>
-            <label className="block mb-2 text-gray-700">Edad:</label>
+            <label className="block mb-2 text-gray-700 text-sm sm:text-base">Edad:</label>
             <input
               type="number"
               name="age"
               value={patient.age}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
               required
             />
           </div>
-          <div className="col-span-1 md:col-span-2 flex space-x-6">
+          <div className="col-span-1 md:col-span-2 flex flex-col sm:flex-row sm:space-x-6 space-y-4 sm:space-y-0">
             <div>
-              <label className="block mb-2 text-gray-700">IMSS Bienestar:</label>
+              <label className="block mb-2 text-gray-700 text-sm sm:text-base">IMSS Bienestar:</label>
               <div className="flex space-x-4">
-                <label className="flex items-center">
+                <label className="flex items-center text-sm sm:text-base">
                   <input
                     type="radio"
                     name="insurance"
@@ -146,7 +145,7 @@ function RegisterPatient() {
                   />
                   Sí
                 </label>
-                <label className="flex items-center">
+                <label className="flex items-center text-sm sm:text-base">
                   <input
                     type="radio"
                     name="insurance"
@@ -160,130 +159,129 @@ function RegisterPatient() {
               </div>
             </div>
             <div>
-              <label className="block mb-2 text-gray-700">Teléfono:</label>
+              <label className="block mb-2 text-gray-700 text-sm sm:text-base">Teléfono:</label>
               <input
                 type="tel"
                 name="phone"
                 value={patient.phone}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
                 required
               />
             </div>
           </div>
           <div>
-            <label className="block mb-2 text-gray-700">Referencia:</label>
+            <label className="block mb-2 text-gray-700 text-sm sm:text-base">Referencia:</label>
             <input
               type="text"
               name="reference"
               value={patient.reference}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
               required
             />
           </div>
           <div>
-            <label className="block mb-2 text-gray-700">Motivo de Consulta:</label>
+            <label className="block mb-2 text-gray-700 text-sm sm:text-base">Motivo de Consulta:</label>
             <input
               type="text"
               name="reason"
               value={patient.reason}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
               required
             />
           </div>
           <div>
-            <label className="block mb-2 text-gray-700">CURP del Paciente:</label>
+            <label className="block mb-2 text-gray-700 text-sm sm:text-base">CURP del Paciente:</label>
             <input
               type="text"
               name="patient_curp"
               value={patient.patient_curp}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
               required
             />
           </div>
           <div>
-            <label className="block mb-2 text-gray-700">Fecha de Nacimiento:</label>
+            <label className="block mb-2 text-gray-700 text-sm sm:text-base">Fecha de Nacimiento:</label>
             <input
               type="date"
               name="patient_birthdate"
               value={patient.patient_birthdate}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
               required
             />
           </div>
           <div>
-            <label className="block mb-2 text-gray-700">Nombre del Familiar:</label>
+            <label className="block mb-2 text-gray-700 text-sm sm:text-base">Nombre del Familiar:</label>
             <input
               type="text"
               name="relative_name"
               value={patient.relative_name}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
               required
             />
           </div>
         </div>
 
-        {/* Datos de Dirección */}
         <div className="mt-6 pt-4 border-t border-gray-300">
           <h3 className="text-lg font-semibold text-gray-700">Datos de Dirección</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
             <div>
-              <label className="block mb-2 text-gray-700">Dirección:</label>
+              <label className="block mb-2 text-gray-700 text-sm sm:text-base">Dirección:</label>
               <input
                 type="text"
                 name="address"
                 value={patient.address}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
                 required
               />
             </div>
             <div>
-              <label className="block mb-2 text-gray-700">Calle:</label>
+              <label className="block mb-2 text-gray-700 text-sm sm:text-base">Calle:</label>
               <input
                 type="text"
                 name="street"
                 value={patient.street}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
                 required
               />
             </div>
             <div>
-              <label className="block mb-2 text-gray-700">Colonia:</label>
+              <label className="block mb-2 text-gray-700 text-sm sm:text-base">Colonia:</label>
               <input
                 type="text"
                 name="neighborhood"
                 value={patient.neighborhood}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
                 required
               />
             </div>
             <div>
-              <label className="block mb-2 text-gray-700">Número:</label>
+              <label className="block mb-2 text-gray-700 text-sm sm:text-base">Número:</label>
               <input
                 type="text"
                 name="house_number"
                 value={patient.house_number}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
                 required
               />
             </div>
             <div>
-              <label className="block mb-2 text-gray-700">Código Postal:</label>
+              <label className="block mb-2 text-gray-700 text-sm sm:text-base">Código Postal:</label>
               <input
                 type="text"
                 name="postal_code"
                 value={patient.postal_code}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-gray-300 rounded-lg text-sm sm:text-base"
                 required
               />
             </div>
